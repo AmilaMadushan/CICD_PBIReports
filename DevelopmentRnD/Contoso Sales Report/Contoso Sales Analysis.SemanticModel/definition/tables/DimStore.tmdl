@@ -1,0 +1,221 @@
+table DimStore
+	lineageTag: 5834263b-1c1b-45fb-8506-873eb9d6cd6d
+
+	column StoreKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 597588d2-fefa-4ad6-92ed-aed39fd489f1
+		summarizeBy: none
+		sourceColumn: StoreKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f87e80a0-bb7c-4489-a3e1-b9dc97360b9c
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreManager
+		dataType: int64
+		formatString: 0
+		lineageTag: 7666fb13-7a44-470f-832b-50f1441f8987
+		summarizeBy: sum
+		sourceColumn: StoreManager
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreType
+		dataType: string
+		lineageTag: f2321030-851f-4514-a6a9-268c3d79efb7
+		summarizeBy: none
+		sourceColumn: StoreType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column StoreName
+		dataType: string
+		lineageTag: 87bdb645-9e2a-494e-ace8-9d82d2cce620
+		summarizeBy: none
+		sourceColumn: StoreName
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Status
+		dataType: string
+		lineageTag: 73b3e5dc-ecc8-43d6-92cd-c38270debd4b
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column OpenDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 202eaceb-6d89-4910-adba-c3784bea52f2
+		summarizeBy: none
+		sourceColumn: OpenDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column CloseDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: a54263d8-0e2e-48f4-8302-617e49defb73
+		summarizeBy: none
+		sourceColumn: CloseDate
+
+		variation Variation
+			isDefault
+			relationship: 4166dcba-6a3d-4307-8910-fe1f2de6c99c
+			defaultHierarchy: LocalDateTable_4fbbc148-3d73-424d-a32b-a1194c0cd2f7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column EntityKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e788b32e-c07c-4a84-92db-a7901f0fcc71
+		summarizeBy: count
+		sourceColumn: EntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ZipCode
+		dataType: string
+		lineageTag: e3c3e130-f9f5-4977-b480-e0eb1a13ee8d
+		summarizeBy: none
+		sourceColumn: ZipCode
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column StorePhone
+		dataType: string
+		lineageTag: abcc42a2-a39a-4ab5-98ea-ac563f7c5940
+		summarizeBy: none
+		sourceColumn: StorePhone
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column StoreFax
+		dataType: string
+		lineageTag: 2aea2a49-6814-49b4-87fa-153fcaedb367
+		summarizeBy: none
+		sourceColumn: StoreFax
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column AddressLine1
+		dataType: string
+		lineageTag: e09cb64f-f3ff-418b-9a63-dad8b944de93
+		summarizeBy: none
+		sourceColumn: AddressLine1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column EmployeeCount
+		dataType: int64
+		formatString: 0
+		lineageTag: c8d6671f-6948-485d-9096-2ae794d69ab6
+		summarizeBy: sum
+		sourceColumn: EmployeeCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column SellingAreaSize
+		dataType: double
+		lineageTag: 71498071-9062-4704-a67e-2e28d76b2c7f
+		summarizeBy: sum
+		sourceColumn: SellingAreaSize
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column LastRemodelDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 30f2ec85-a8bf-4ad2-870b-06ec12e59358
+		summarizeBy: none
+		sourceColumn: LastRemodelDate
+
+		variation Variation
+			isDefault
+			relationship: a49ad28a-f4ef-442d-a2fa-ff5c196b93ab
+			defaultHierarchy: LocalDateTable_a5277bc4-ba7b-4583-b4cd-a914398af88e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Geometry
+		dataType: string
+		lineageTag: c63e539e-5582-4a0c-b690-6a520f224a37
+		summarizeBy: none
+		sourceColumn: Geometry
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Longitude
+		dataType: double
+		lineageTag: 925980b1-3d15-441b-ab96-c58334e92deb
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Latitude
+		dataType: double
+		lineageTag: 254d2b76-3579-4007-9471-6352dead67fd
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition DimStore-a0f43fae-a0c1-4ae6-a8d9-7e9f5cc03222 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("MW-RSY-4KM1VQ3"),
+				    ContosoRetailDW = Source{[Name="ContosoRetailDW"]}[Data],
+				    dbo_DimStore = ContosoRetailDW{[Schema="dbo",Item="DimStore"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(dbo_DimStore,{"StoreDescription", "ZipCodeExtension", "AddressLine2", "CloseReason", "ETLLoadID", "LoadDate", "UpdateDate", "DimGeography", "DimMachine", "FactITSLA", "FactInventory", "FactOnlineSales", "FactSales", "FactSalesQuota"}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Removed Columns", "GeoLocation", Splitter.SplitTextByDelimiter(" ", QuoteStyle.Csv), {"GeoLocation.1", "GeoLocation.2", "GeoLocation.3"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"GeoLocation.1", type text}, {"GeoLocation.2", type text}, {"GeoLocation.3", type text}}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type", "GeoLocation.2", Splitter.SplitTextByDelimiter("(", QuoteStyle.Csv), {"GeoLocation.2.1", "GeoLocation.2.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"GeoLocation.2.1", type text}, {"GeoLocation.2.2", type number}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type1",{"GeoLocation.2.1", "GeoLocation.1"}),
+				    #"Split Column by Delimiter2" = Table.SplitColumn(#"Removed Columns1", "GeoLocation.3", Splitter.SplitTextByDelimiter(")", QuoteStyle.Csv), {"GeoLocation.3.1", "GeoLocation.3.2"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Delimiter2",{{"GeoLocation.3.1", type number}, {"GeoLocation.3.2", type text}}),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Changed Type2",{"GeoLocation.3.2"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns2",{{"GeoLocation.2.2", "Longitude"}, {"GeoLocation.3.1", "Latitude"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

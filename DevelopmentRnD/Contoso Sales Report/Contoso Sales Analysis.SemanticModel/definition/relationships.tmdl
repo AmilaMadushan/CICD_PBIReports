@@ -1,0 +1,69 @@
+relationship 8241aff6-3005-485a-894f-cb9feca3fd77
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: DimSalesTerritory.GeographyKey
+	toColumn: DimGeography.GeographyKey
+
+relationship 3f2672ce-d355-4909-b159-105d1bdcf3de
+	fromColumn: DimProductSubcategory.ProductCategoryKey
+	toColumn: DimProductCategory.ProductCategoryKey
+
+relationship 4166dcba-6a3d-4307-8910-fe1f2de6c99c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimStore.CloseDate
+	toColumn: LocalDateTable_4fbbc148-3d73-424d-a32b-a1194c0cd2f7.Date
+
+relationship a49ad28a-f4ef-442d-a2fa-ff5c196b93ab
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimStore.LastRemodelDate
+	toColumn: LocalDateTable_a5277bc4-ba7b-4583-b4cd-a914398af88e.Date
+
+relationship 3a0c14ad-bf1f-49bb-ad25-1d1cbeca8086
+	fromColumn: DimStore.GeographyKey
+	toColumn: DimGeography.GeographyKey
+
+relationship a038a917-c3af-4e8a-8a14-b4b735e9b890
+	fromColumn: DimProduct.ProductSubcategoryKey
+	toColumn: DimProductSubcategory.ProductSubcategoryKey
+
+relationship 5a4651bd-0706-41a5-8520-6f4dbba51a18
+	fromColumn: Sales.DateKey
+	toColumn: DimDate.Datekey
+
+relationship b29431ff-861f-49b0-91e4-aecbb6b70156
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.Datekey
+	toColumn: LocalDateTable_a64d8a1a-b5fb-4c4d-a1cd-0ab9f5cb554a.Date
+
+relationship a872e83b-55a7-4551-be59-3624f0c6157b
+	fromColumn: Sales.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship 7362b780-be7d-41a7-82b5-3a9cf3e7cc59
+	isActive: false
+	fromColumn: DimStore.OpenDate
+	toColumn: DimDate.Datekey
+
+relationship 1b80e968-6352-4a2f-89a1-abc116d561b2
+	fromColumn: Sales.StoreKey
+	toColumn: DimStore.StoreKey
+
+relationship d58351da-e506-4f11-a662-1bed714d8b55
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.CalendarYear
+	toColumn: LocalDateTable_13cf7f77-5d39-4ba6-8c99-132fb0e2618f.Date
+
+relationship 973ab1d5-f8c2-4fc5-8a42-47157d27d1a7
+	fromColumn: Sales.channelKey
+	toColumn: DimChannel.ChannelKey
+
+relationship 1eb03f80-80e8-4bf7-963a-556d8461f3d5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Sales.LoadDate
+	toColumn: LocalDateTable_7fcc0c24-38df-4833-a16c-7b781f9b0914.Date
+
+relationship 198c31c7-13d6-42b8-bd8b-4e953c6afd62
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Sales.UpdateDate
+	toColumn: LocalDateTable_557b806c-9ed7-430b-a3f8-8ecf723dcc8d.Date
+

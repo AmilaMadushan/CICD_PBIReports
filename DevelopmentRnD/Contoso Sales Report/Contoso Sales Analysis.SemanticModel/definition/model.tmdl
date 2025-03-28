@@ -1,0 +1,36 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBIDesktopVersion = 2.140.1577.0 (25.02)+00af0910c5ca19a229c472b0dfc17a2c488f6b0a
+
+annotation PBI_QueryOrder = ["DimDate","DimSalesTerritory","DimGeography","DimProductCategory","DimProductSubcategory","DimStore","DimProduct","Sales","DimChannel","RangeStart","RangeEnd"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DimDate
+ref table DateTableTemplate_5e6ef57f-2ab7-4d72-b434-c1475a9e335b
+ref table DimSalesTerritory
+ref table DimGeography
+ref table DimProductCategory
+ref table DimProductSubcategory
+ref table DimStore
+ref table LocalDateTable_4fbbc148-3d73-424d-a32b-a1194c0cd2f7
+ref table LocalDateTable_a5277bc4-ba7b-4583-b4cd-a914398af88e
+ref table DimProduct
+ref table Sales
+ref table LocalDateTable_a64d8a1a-b5fb-4c4d-a1cd-0ab9f5cb554a
+ref table Mesures
+ref table LocalDateTable_13cf7f77-5d39-4ba6-8c99-132fb0e2618f
+ref table DimChannel
+ref table LocalDateTable_7fcc0c24-38df-4833-a16c-7b781f9b0914
+ref table LocalDateTable_557b806c-9ed7-430b-a3f8-8ecf723dcc8d
+
+ref cultureInfo en-US
+

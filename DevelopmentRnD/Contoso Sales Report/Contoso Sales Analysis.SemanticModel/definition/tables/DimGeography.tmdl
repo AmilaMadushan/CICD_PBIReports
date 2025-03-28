@@ -1,0 +1,102 @@
+table DimGeography
+	lineageTag: 36ba73dd-b395-4d3a-a136-6cfd8c6d1ed7
+
+	column GeographyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 333b0143-7ace-464e-95f7-51f93891b7d9
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyType
+		dataType: string
+		lineageTag: 1214fc33-7c7c-4f93-996c-6f56d8c0a3c5
+		summarizeBy: none
+		sourceColumn: GeographyType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Continent
+		dataType: string
+		lineageTag: e7cdb05e-79c0-4b1a-8141-199abb52fc82
+		dataCategory: Continent
+		summarizeBy: none
+		sourceColumn: Continent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column CityName
+		dataType: string
+		lineageTag: b75dfa89-18de-4a9e-a738-40fe08840084
+		dataCategory: City
+		summarizeBy: none
+		sourceColumn: CityName
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column StateProvinceName
+		dataType: string
+		lineageTag: f31214e1-e5c6-4d5f-aa16-2bbb69d2ab08
+		dataCategory: StateOrProvince
+		summarizeBy: none
+		sourceColumn: StateProvinceName
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Country
+		dataType: string
+		lineageTag: 86a3857d-790e-458d-83c6-2e27f75a29af
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	hierarchy 'RegionCountryName Hierarchy'
+		lineageTag: 4be04b50-8466-4ad1-b831-4f57b4ce73e1
+
+		level Continent
+			lineageTag: 68b37277-ca6d-4b27-a142-9ced0e7a00ff
+			column: Continent
+
+		level Country
+			lineageTag: eb292422-7c98-4a6a-8530-33e5db24b75c
+			column: Country
+
+		level State
+			lineageTag: b99d7b17-64cb-47e2-a8e0-e86bba6cba9e
+			column: StateProvinceName
+
+		level City
+			lineageTag: 0699a4bf-4110-4ca1-82db-f224486c86dd
+			column: CityName
+
+	partition DimGeography-a03c8347-ea86-4f29-8e76-8c8462d0defd = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("MW-RSY-4KM1VQ3"),
+				    ContosoRetailDW = Source{[Name="ContosoRetailDW"]}[Data],
+				    dbo_DimGeography = ContosoRetailDW{[Schema="dbo",Item="DimGeography"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(dbo_DimGeography,{"ETLLoadID", "LoadDate", "UpdateDate", "DimCustomer", "DimSalesTerritory", "DimStore"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"RegionCountryName", "Country"}, {"ContinentName", "Continent"}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns",{"Geometry"})
+				in
+				    #"Removed Columns1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Contoso Sales Analysis"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "20ff51fd-9634-4c65-aea8-51294199e38d"
+  }
+}

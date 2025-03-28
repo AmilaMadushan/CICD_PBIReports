@@ -1,0 +1,66 @@
+table DimProductSubcategory
+	lineageTag: 16270b25-fba1-48ae-94aa-afdeadae4355
+
+	column ProductSubcategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c948ffc-b1d8-42c4-92d8-f4bfcbf0f8dd
+		summarizeBy: none
+		sourceColumn: ProductSubcategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductSubcategoryLabel
+		dataType: string
+		lineageTag: bf7afecb-7a21-4814-866f-23e3eb7b9fc0
+		summarizeBy: none
+		sourceColumn: ProductSubcategoryLabel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column ProductSubcategoryName
+		dataType: string
+		lineageTag: 1e79949b-dc9c-4332-bdc3-e5ab35f238a2
+		summarizeBy: none
+		sourceColumn: ProductSubcategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column ProductSubcategoryDescription
+		dataType: string
+		lineageTag: ce76af25-fe78-422b-b5de-fad2839c7117
+		summarizeBy: none
+		sourceColumn: ProductSubcategoryDescription
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column ProductCategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: b645ccc3-e0e8-4927-aaf8-a0bafd895cae
+		summarizeBy: none
+		sourceColumn: ProductCategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimProductSubcategory-46c62688-3ad3-43c6-91cb-eb088dd70c15 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("MW-RSY-4KM1VQ3"),
+				    ContosoRetailDW = Source{[Name="ContosoRetailDW"]}[Data],
+				    dbo_DimProductSubcategory = ContosoRetailDW{[Schema="dbo",Item="DimProductSubcategory"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(dbo_DimProductSubcategory,{"ETLLoadID", "LoadDate", "UpdateDate", "DimProduct", "DimProductCategory"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

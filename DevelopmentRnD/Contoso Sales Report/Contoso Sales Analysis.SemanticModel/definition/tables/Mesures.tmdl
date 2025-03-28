@@ -1,0 +1,92 @@
+table Mesures
+	lineageTag: 288f2421-e7fe-4f9a-be72-46715f8d6f13
+
+	measure 'Total Sales' = SUM(Sales[Sales])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 1605d033-f76d-4e41-a3e6-c20cf5455655
+
+	measure 'Sales LY' = CALCULATE([Total Sales], SAMEPERIODLASTYEAR(DimDate[Datekey]))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 3deba6bc-54be-47cf-b4b6-902c6ab75c99
+
+	measure '% Change in Sales' = CALCULATE(DIVIDE([Sales LY],[Total Sales],0)-1, GROUPBY(DimProductCategory,DimProductCategory[ProductCategoryName]), GROUPBY(DimProductSubcategory, DimProductSubcategory[ProductSubcategoryName]), GROUPBY(DimProduct, DimProduct[ProductName]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 2b446da4-f297-4894-81be-028b1e3249a2
+
+	measure 'Net Profit' = [Total Sales] - [COGS]
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: ad892126-da92-49c8-8824-4fb0b666e6d2
+
+	measure 'Profit Margin' = DIVIDE([Net Profit],[Total Sales],0)
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		lineageTag: 7e28126f-1e08-4621-bdfe-04dc527520d9
+
+	measure 'Net Profits Running Total' = ```
+			
+			CALCULATE(
+				[Net Profit],
+				FILTER(
+					ALLSELECTED('DimDate'[Datekey]),
+			        ISONORAFTER('DimDate'[Datekey], MAX('DimDate'[Datekey]), DESC)
+			    )
+			)
+			        
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: c2890b31-4b9b-4170-b18e-659b3ce5c668
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure COGS = SUM(Sales[TotalCost])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: c8f50ac9-c7cf-40ab-aa0b-806028f4b630
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Quantity Sold' = SUM(Sales[SalesQuantity])
+		formatString: 0
+		lineageTag: c91dbf3f-a87b-41bd-a5c0-94533018683c
+
+	measure 'Sales Year to Date' =
+			CALCULATE(
+			                                [Total Sales],
+			                                    DATESYTD(DimDate[Datekey])
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 9a2a8f6d-1dac-47e1-94e9-e99b3e156dff
+
+	measure 'Store Sales (Selected)' = ```
+			
+			CALCULATE( 
+				[Total Sales] , 
+				FILTER(
+			        ALLSELECTED(DimDate[Datekey]),
+			        DimDate[Datekey] <= MAX(DimDate[Datekey])),
+			    GROUPBY( DimStore, 
+			                DimStore[StoreName])
+			)
+					
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: f92f2c1b-5f84-423a-8c61-c4a5ccfd7373
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: bd3acd4f-e5df-427a-8d86-de34d1a7320e
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Mesures-ef99b628-f24b-45a2-ad9f-6d285e13c56c = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 41da89ea4cf246a5b0bc27a80010c70a
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"formula":"DAX Measures","Expression":null}
+
+	annotation 277cc1b9-af89-4597-8e15-cacc25c0886b = To use special characters in a calculated table name, enclose the entire name in brackets ( [] ) and add a ] to any closing brackets in the name.
+

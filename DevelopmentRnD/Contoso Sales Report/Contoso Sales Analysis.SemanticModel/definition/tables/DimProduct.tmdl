@@ -1,0 +1,88 @@
+table DimProduct
+	lineageTag: 89046cfa-cf55-40e7-8c1d-14c7210da820
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 5263f441-4501-4403-b1de-d0a7af91ac3b
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductName
+		dataType: string
+		lineageTag: 9ad38b1a-a6c1-45c9-bdc2-17d38cabe737
+		summarizeBy: none
+		sourceColumn: ProductName
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column ProductSubcategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: a8b81d02-cc64-41eb-8911-5e9ac4f6e337
+		summarizeBy: none
+		sourceColumn: ProductSubcategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column BrandName
+		dataType: string
+		lineageTag: 51a398c9-7dd7-48d2-880a-e988aacad54a
+		summarizeBy: none
+		sourceColumn: BrandName
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column ClassName
+		dataType: string
+		lineageTag: b43ca780-9f60-4fee-af41-8f2bbebf39d8
+		summarizeBy: none
+		sourceColumn: ClassName
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column UnitCost
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 00e36a4f-ed20-4a38-a97d-ae593422e497
+		summarizeBy: sum
+		sourceColumn: UnitCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column UnitPrice
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: aa8ef093-a313-4e41-a028-ad9f0d538dee
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition DimProduct-3c97fc36-a0d6-4dab-a73f-c8d441df6d14 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("MW-RSY-4KM1VQ3"),
+				    ContosoRetailDW = Source{[Name="ContosoRetailDW"]}[Data],
+				    dbo_DimProduct = ContosoRetailDW{[Schema="dbo",Item="DimProduct"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(dbo_DimProduct,{"AvailableForSaleDate", "StopSaleDate", "Status", "ImageURL", "ProductURL", "ETLLoadID", "LoadDate", "UpdateDate", "DimProductSubcategory", "FactInventory", "FactOnlineSales", "FactSales", "FactSalesQuota", "Size", "SizeRange", "SizeUnitMeasureID", "Weight", "WeightUnitMeasureID", "UnitOfMeasureID", "UnitOfMeasureName", "ProductLabel", "ProductDescription", "Manufacturer", "ClassID", "StyleID", "StyleName", "ColorID", "ColorName", "StockTypeID", "StockTypeName"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,84 @@
+table DimDate
+	lineageTag: 44ccc243-4219-44d6-be8f-1573973e9ad2
+
+	column Datekey
+		dataType: dateTime
+		lineageTag: 681e6094-562f-413b-94a0-ded78dcb472d
+		summarizeBy: none
+		sourceColumn: Datekey
+
+		variation Variation
+			isDefault
+			relationship: b29431ff-861f-49b0-91e4-aecbb6b70156
+			defaultHierarchy: LocalDateTable_a64d8a1a-b5fb-4c4d-a1cd-0ab9f5cb554a.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column CalendarYear
+		dataType: dateTime
+		lineageTag: 81383c44-9248-4991-ac95-1311e9c39526
+		summarizeBy: none
+		sourceColumn: CalendarYear
+
+		variation Variation
+			isDefault
+			relationship: d58351da-e506-4f11-a662-1bed714d8b55
+			defaultHierarchy: LocalDateTable_13cf7f77-5d39-4ba6-8c99-132fb0e2618f.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column CalendarQuarterLabel
+		dataType: string
+		lineageTag: 811e9e02-642a-4a01-9f7f-cef380b51c9f
+		summarizeBy: none
+		sourceColumn: CalendarQuarterLabel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column CalendarMonthLabel
+		dataType: string
+		lineageTag: 72be7275-f2de-4aa8-a147-bfd5d5bb1278
+		summarizeBy: none
+		sourceColumn: CalendarMonthLabel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Year = YEAR(DimDate[Datekey])
+		formatString: 0
+		lineageTag: 54eadd65-9791-45e5-be87-1098f0fedee2
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate-d5544f09-8975-47ce-9880-4e7f6cad3e1c = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("MW-RSY-4KM1VQ3"),
+				    ContosoRetailDW = Source{[Name="ContosoRetailDW"]}[Data],
+				    dbo_DimDate = ContosoRetailDW{[Schema="dbo",Item="DimDate"]}[Data],
+				    #"Removed Other Columns" = Table.SelectColumns(dbo_DimDate,{"Datekey", "FullDateLabel", "DateDescription", "CalendarYear", "CalendarYearLabel", "CalendarHalfYear", "CalendarHalfYearLabel", "CalendarQuarter", "CalendarQuarterLabel", "CalendarMonth", "CalendarMonthLabel", "CalendarWeek", "CalendarWeekLabel", "CalendarDayOfWeek", "CalendarDayOfWeekLabel", "FiscalYear", "FiscalYearLabel", "FiscalHalfYear", "FiscalHalfYearLabel", "FiscalQuarter", "FiscalQuarterLabel", "FiscalMonth", "FiscalMonthLabel", "IsWorkDay", "IsHoliday", "HolidayName", "EuropeSeason", "NorthAmericaSeason", "AsiaSeason"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Removed Other Columns",{"FullDateLabel", "DateDescription", "CalendarYearLabel", "CalendarHalfYear", "CalendarHalfYearLabel", "CalendarQuarter", "CalendarMonth", "CalendarWeek", "CalendarDayOfWeek", "FiscalYearLabel", "FiscalHalfYear", "FiscalHalfYearLabel", "FiscalQuarter", "FiscalQuarterLabel", "FiscalMonth", "FiscalMonthLabel", "IsWorkDay", "IsHoliday", "HolidayName", "EuropeSeason", "NorthAmericaSeason", "AsiaSeason", "FiscalYear", "CalendarWeekLabel", "CalendarDayOfWeekLabel"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

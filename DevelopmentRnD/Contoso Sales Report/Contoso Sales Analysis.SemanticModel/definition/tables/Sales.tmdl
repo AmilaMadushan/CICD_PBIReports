@@ -1,0 +1,257 @@
+table Sales
+	lineageTag: 01cca4a7-439f-4e95-81b5-82fabd9522cf
+
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 2
+		incrementalGranularity: month
+		incrementalPeriods: 1
+		sourceExpression =
+			let
+			    Source = Sql.Database("MW-RSY-4KM1VQ3", "ContosoRetailDW"),
+			    qf = Value.NativeQuery(Source,"select * from [ContosoRetailDW].[dbo].[FactSales]",null, [EnableFolding = true]),
+			    #"Filtered Rows" = Table.SelectRows(qf, each [DateKey] >= RangeStart and [DateKey] <= RangeEnd)
+			in
+			    #"Filtered Rows"
+
+	column SalesKey
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 8e537c8a-987c-4e3f-8fea-60b6e8949089
+		summarizeBy: count
+		sourceColumn: SalesKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: dateTime
+		isNullable: false
+		formatString: General Date
+		sourceProviderType: datetime
+		lineageTag: dde91487-9550-4f42-94a5-b5c448e9f0bf
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column channelKey
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c19058d8-bf64-4391-abc9-ac88bcb4d38a
+		summarizeBy: none
+		sourceColumn: channelKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreKey
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a607ac92-d7f6-4020-800b-e2bf4a7cee08
+		summarizeBy: none
+		sourceColumn: StoreKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: abece10a-2e10-42e3-a070-370ba428ffc4
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitCost
+		dataType: double
+		isNullable: false
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 223b3a3f-a411-48eb-9c5c-812f5a28b1b9
+		summarizeBy: sum
+		sourceColumn: UnitCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column UnitPrice
+		dataType: double
+		isNullable: false
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 52aca78f-096e-4e9c-9e2c-aa6789d452bf
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column SalesQuantity
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 1de1a8e6-b3e9-458e-a28c-5db2793e2e5a
+		summarizeBy: sum
+		sourceColumn: SalesQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column TotalCost
+		dataType: double
+		isNullable: false
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: e3a23fb6-9613-4be5-a694-38360465fc98
+		summarizeBy: sum
+		sourceColumn: TotalCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column SalesAmount
+		dataType: double
+		isNullable: false
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: c80cf31e-502e-43bd-af22-9ff068189ad5
+		summarizeBy: sum
+		sourceColumn: SalesAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column Sales = Sales[SalesQuantity]*Sales[UnitPrice]
+		dataType: int64
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 2c5827a6-e356-47fe-900d-1052f7d5b1db
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column '%Total Sales' = DIVIDE(Sales[Sales], SUM(Sales[Sales]))
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 246d18ad-d3c4-4e8d-a6b9-226687f09033
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromotionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: d328f9d1-1f03-4f3f-9f46-baf0fce2b45c
+		summarizeBy: count
+		sourceColumn: PromotionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 830233dd-7271-46fd-9eb4-7f0285e9a781
+		summarizeBy: count
+		sourceColumn: CurrencyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 94febf10-5f96-416c-a7ac-3a1b4e80b867
+		summarizeBy: sum
+		sourceColumn: ReturnQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnAmount
+		dataType: double
+		lineageTag: 4255406d-e18b-4d40-a90d-fc18654fb248
+		summarizeBy: sum
+		sourceColumn: ReturnAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DiscountQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 98f63a77-ab36-4052-b9b7-d59e2afe6b31
+		summarizeBy: sum
+		sourceColumn: DiscountQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiscountAmount
+		dataType: double
+		lineageTag: 847adfca-3f76-4ed7-aba4-08d257ff5ef6
+		summarizeBy: sum
+		sourceColumn: DiscountAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ETLLoadID
+		dataType: int64
+		formatString: 0
+		lineageTag: db67a49c-f287-4cdd-8b8b-4947ba2ef41e
+		summarizeBy: count
+		sourceColumn: ETLLoadID
+
+		annotation SummarizationSetBy = Automatic
+
+	column LoadDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 78a40711-5ae2-4e42-8e79-33d836827731
+		summarizeBy: none
+		sourceColumn: LoadDate
+
+		variation Variation
+			isDefault
+			relationship: 1eb03f80-80e8-4bf7-963a-556d8461f3d5
+			defaultHierarchy: LocalDateTable_7fcc0c24-38df-4833-a16c-7b781f9b0914.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column UpdateDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 90ae2b2a-3ef0-4aa6-874b-51c3bc165140
+		summarizeBy: none
+		sourceColumn: UpdateDate
+
+		variation Variation
+			isDefault
+			relationship: 198c31c7-13d6-42b8-bd8b-4e953c6afd62
+			defaultHierarchy: LocalDateTable_557b806c-9ed7-430b-a3f8-8ecf723dcc8d.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sales-b05f2a0a-7190-4557-a22b-d4348b798f40 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("MW-RSY-4KM1VQ3", "ContosoRetailDW"),
+				    qf = Value.NativeQuery(Source,"select * from [ContosoRetailDW].[dbo].[FactSales]",null, [EnableFolding = true]),
+				    #"Filtered Rows" = Table.SelectRows(qf, each [DateKey] >= RangeStart and [DateKey] <= RangeEnd)
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_IsMQueryFoldable = True
+

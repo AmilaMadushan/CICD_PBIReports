@@ -1,0 +1,57 @@
+table DimProductCategory
+	lineageTag: dfdb2e5b-26e0-4841-bc22-c06fdadee15f
+
+	column ProductCategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8351eef8-589c-43c1-b267-6f5635642847
+		summarizeBy: none
+		sourceColumn: ProductCategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCategoryLabel
+		dataType: string
+		lineageTag: f5408e2e-ce0c-4d11-af4c-18db4d79dd48
+		summarizeBy: none
+		sourceColumn: ProductCategoryLabel
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column ProductCategoryName
+		dataType: string
+		lineageTag: d929212f-d0e9-4be0-b085-9ffc8f08b8af
+		summarizeBy: none
+		sourceColumn: ProductCategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column ProductCategoryDescription
+		dataType: string
+		lineageTag: e70c5909-afde-47f4-841a-51dda5a89820
+		summarizeBy: none
+		sourceColumn: ProductCategoryDescription
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	partition DimProductCategory-1be5b5ab-7e55-4d25-bdad-c0d97bff6d85 = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("MW-RSY-4KM1VQ3"),
+				    ContosoRetailDW = Source{[Name="ContosoRetailDW"]}[Data],
+				    dbo_DimProductCategory = ContosoRetailDW{[Schema="dbo",Item="DimProductCategory"]}[Data],
+				    #"Removed Columns" = Table.RemoveColumns(dbo_DimProductCategory,{"ETLLoadID", "LoadDate", "UpdateDate", "DimProductSubcategory", "FactStrategyPlan"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
